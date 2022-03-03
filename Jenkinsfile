@@ -20,7 +20,7 @@ pipeline {
    }
    stage("Coverity Inject") {
      steps {
-       withCoverityEnvironment(coverityInstanceUrl: 'http://192.168.56.103:8080', projectName: 'Python-Demo', streamName: 'Python-Demo-Jenkins', viewName: 'Outstanding Issues') {
+       withCoverityEnvironment(coverityInstanceUrl: 'https://testing.coverity.synopsys.com', projectName: 'proftpd-Demo', streamName: 'proftpd-Demo-Jenkins', viewName: 'Outstanding Issues') {
     // some block
       }
      }
@@ -28,7 +28,7 @@ pipeline {
    stage('Coverity-build') {
         steps {
             script {
-                sh "/Applications/cov-analysis-macosx-2021.9.0/bin/cov-build --dir idir /Users/dylanm/Build-Tools/apache-maven-3.8.3/bin/mvn -B clean package -DskipTests"
+                sh "/Applications/cov-analysis-macosx-2021.9.0/bin/cov-build --dir idir /Applications/CMake.app/Contents/bin make all"
             }
         }
     }
@@ -42,7 +42,7 @@ pipeline {
    stage('Coverity-commit') {
         steps {
             script {
-              sh "/Applications/cov-analysis-macosx-2021.9.0/bin/cov-commit-defects --dir idir --url http://192.168.56.103:8080 --stream Python-Demo-Jenkins --scm git --user admin --password SIGpass8!"
+              sh "/Applications/cov-analysis-macosx-2021.9.0/bin/cov-commit-defects --dir idir --url https://testing.coverity.synopsys.com --stream proftpd-Demo-Jenkins --scm git --user admin --password SIGpass8!"
             }
         }
     }
