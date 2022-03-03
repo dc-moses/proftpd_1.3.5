@@ -50,7 +50,7 @@ pipeline {
       steps {
        script {
          synopsys_detect '--detect.tools=DETECTOR --detect.project.name=SPM-${JOB_NAME} --detect.project.version.name=${GIT_BRANCH} --detect.maven.path=/Users/dylanm/Build-Tools/apache-maven-3.8.3/bin/mvn'
-         sh 'blackduck-c-cpp --config audour-config.yaml'
+         sh '/Applications/blackduck-c-cpp --config audour-config.yaml'
       }
      }
    }
